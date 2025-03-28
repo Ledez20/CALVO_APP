@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -66,40 +67,121 @@
             z-index: 1000;
             border-right: 1px solid rgba(52, 152, 219, 0.2);
         }
+
         .sidebar button {
-            width: 100%;
-            padding: 15px;
+                width: 100%;
+                padding: 20px;
             margin: 5px 0;
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            background: rgba(44, 62, 80, 0.95);
             color: var(--text-primary);
-            border: none;
+            border: 1px solid rgba(52, 152, 219, 0.2);
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: all 0.3s ease;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                gap: 15px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
         }
+
+        .sidebar button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+                width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(236, 240, 241, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar button:hover::before {
+            opacity: 1;
+        }
+
         .home-button {
             background: linear-gradient(135deg, var(--accent-color), var(--secondary-color)) !important;
             margin-bottom: 20px !important;
             font-weight: 600 !important;
             transform: translateY(-2px);
+            border: none !important;
         }
+
         .home-button:hover {
             transform: translateY(-4px);
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 12px 40px rgba(52, 152, 219, 0.4);
         }
-        .home-icon {
-            font-size: 1.2em;
+
+        .home-icon, .section-icon {
+            font-size: 2em;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.3s ease;
         }
+
         .sidebar button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px var(--shadow-color);
+            box-shadow: 0 12px 40px var(--shadow-color);
             background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
         }
+
+        .sidebar button:hover .home-icon,
+        .sidebar button:hover .section-icon {
+            transform: scale(1.1);
+        }
+
+        .sidebar button span:not(.home-icon):not(.section-icon) {
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+        .sidebar {
+            position: fixed;
+            top: 0;
+                left: -250px;
+                width: 250px;
+            height: 100vh;
+                background: rgba(44, 62, 80, 0.98);
+                backdrop-filter: blur(10px);
+            z-index: 1000;
+                transition: left 0.3s ease;
+                padding: 20px;
+                box-shadow: 4px 0 15px var(--shadow-color);
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1001;
+                background: var(--accent-color);
+            border: none;
+                color: var(--text-primary);
+                padding: 12px 15px;
+                border-radius: 12px;
+            cursor: pointer;
+                box-shadow: 0 4px 15px var(--shadow-color);
+                font-size: 1.2em;
+            transition: all 0.3s ease;
+            }
+
+            .menu-toggle:hover {
+            transform: translateY(-2px);
+                box-shadow: 0 6px 20px var(--shadow-color);
+        }
+        }
+
         .content {
             flex: 1;
             padding: 30px;
@@ -1470,11 +1552,18 @@
             <span class="home-icon">🏠</span> Home
         </button>
         <button onclick="showSection('elaboracion')">
-            <span class="section-icon"></span>🦑 Elaboración
+            <span class="section-icon">🦑</span> Elaboración
         </button>
-        <button onclick="showSection('gestionPersonas')">Gestión de Personas</button>
+        <button onclick="showSection('inventario')">
+            <span class="section-icon">📦</span> Gestión de Inventario
+        </button>
+        <button onclick="showSection('notas')">
+            <span class="section-icon">📝</span> Notas y Programación
+        </button>
+        <button onclick="showSection('gestionPersonas')">
+            <span class="section-icon">👥</span> Gestión de Personas
+        </button>
     </div>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <div class="content">
         <div id="alertContainer"></div>
         
@@ -1484,9 +1573,19 @@
                 <h1>Sistema de gestión</h1>
                 <div class="welcome-cards">
                     <div class="welcome-card" onclick="showSection('elaboracion')">
-                        <div class="card-icon"></div>
-                        <h3>🦑 Elaboración</h3>
-                        <p>Gestiona el inventario, elaboraciones y programación</p>
+                        <div class="card-icon">🦑</div>
+                        <h3>Elaboración</h3>
+                        <p>Gestiona las elaboraciones y programación</p>
+                    </div>
+                    <div class="welcome-card" onclick="showSection('inventario')">
+                        <div class="card-icon">📦</div>
+                        <h3>Gestión de Inventario</h3>
+                        <p>Administra el inventario y stock</p>
+                    </div>
+                    <div class="welcome-card" onclick="showSection('notas')">
+                        <div class="card-icon">📝</div>
+                        <h3>Notas y Programación</h3>
+                        <p>Gestiona notas y programación de actividades</p>
                     </div>
                     <div class="welcome-card" onclick="showSection('gestionPersonas')">
                         <div class="card-icon">👥</div>
@@ -1523,9 +1622,7 @@
             <div class="section-header">
                 <h2>Elaboración</h2>
                 <div class="section-nav">
-                    <button class="btn" onclick="showSubSection('gestionElaboraciones')">Gestión de Elaboraciones</button>
-                    <button class="btn" onclick="showSubSection('gestionInventario')">Gestión de Inventario</button>
-                    <button class="btn" onclick="showSubSection('notas')">Notas y Programación</button>
+                    <button class="btn" onclick="showSubSection('gestionElaboraciones')">Rejos de potón</button>
                 </div>
             </div>
             <div id="subSectionContent">
@@ -1534,7 +1631,7 @@
         </div>
         
         <!-- Sección de Gestión de Inventario -->
-        <div id="gestionInventario" class="section">
+        <div id="inventario" class="section">
             <h2>Gestión de Inventario</h2>
             <div class="form-group">
                 <label for="producto">Producto:</label>
@@ -1888,6 +1985,23 @@ Personal asignado:
                     actualizarEstadisticas();
                 }
 
+                // Cargar datos específicos según la sección
+                switch(sectionId) {
+                    case 'inventario':
+                        mostrarHistorialInventario();
+                        break;
+                    case 'elaboracion':
+                        mostrarHistorialElaboraciones();
+                        break;
+                    case 'notas':
+                        cargarNotas();
+                        cargarPersonasEnSelector();
+                        break;
+                    case 'gestionPersonas':
+                        mostrarHistorialPersonas();
+                        break;
+                }
+
                 // Cerrar el menú en móvil después de seleccionar una sección
                 if (window.innerWidth <= 768) {
                     document.querySelector('.sidebar').classList.remove('active');
@@ -1915,17 +2029,10 @@ Personal asignado:
 
             // Inicializar funcionalidades específicas según la subsección
             switch(subSectionId) {
-                case 'gestionInventario':
-                    mostrarHistorialInventario();
-                    break;
                 case 'gestionElaboraciones':
                     generarGridBins();
                     setTimeout(calcularConsumoEstimado, 100);
                     mostrarHistorialElaboraciones();
-                    break;
-                case 'notas':
-                    cargarNotas();
-                    cargarPersonasEnSelector();
                     break;
             }
 
@@ -2603,64 +2710,108 @@ Personal asignado:
         let fechaSeleccionada = new Date();
         let celdaSeleccionada = null;
 
-        // Función para cargar las notas en la interfaz
-        function cargarNotas() {
-            const listaNotas = document.getElementById('listaNotas');
-            if (!listaNotas) return;
-            
-            listaNotas.innerHTML = '';
-            
-            // Ordenar notas por fecha programada
-            notas.sort((a, b) => new Date(a.fechaProgramada) - new Date(b.fechaProgramada));
-            
-            // Actualizar el selector de filtro de personas
-            const filtroPersona = document.getElementById('filtroPersona');
-            if (filtroPersona) {
-                const personas = new Set();
-                notas.forEach(nota => {
-                    if (nota.personasAsignadas) {
-                        nota.personasAsignadas.forEach(persona => personas.add(persona));
-                    }
-                });
-                
-                // Mantener la primera opción
-                filtroPersona.innerHTML = '<option value="todas">Todas las personas</option>';
-                
-                // Agregar las personas únicas
-                personas.forEach(persona => {
-                    const option = document.createElement('option');
-                    option.value = persona;
-                    option.textContent = persona;
-                    filtroPersona.appendChild(option);
-                });
+        // Función para guardar una nueva nota
+        function guardarNota() {
+            const fecha = document.getElementById('fechaNota').value;
+            const personasAsignadas = Array.from(document.getElementById('personaAsignada').selectedOptions).map(option => option.value);
+            const texto = document.getElementById('areaNotas').value;
+
+            if (!fecha || personasAsignadas.length === 0 || !texto) {
+                mostrarAlerta('Por favor complete todos los campos', 'error');
+                return;
             }
-            
-            notas.forEach((nota, index) => {
-                const fechaProgramada = new Date(nota.fechaProgramada);
-                const fechaFormateada = fechaProgramada.toLocaleDateString('es-ES', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                
+
+            const nuevaNota = {
+                id: Date.now(),
+                fecha: fecha,
+                personasAsignadas: personasAsignadas,
+                texto: texto,
+                timestamp: new Date().toISOString()
+            };
+
+            let notas = JSON.parse(localStorage.getItem('notas') || '[]');
+            notas.push(nuevaNota);
+            localStorage.setItem('notas', JSON.stringify(notas));
+
+            document.getElementById('areaNotas').value = '';
+            document.getElementById('fechaNota').value = '';
+            document.getElementById('personaAsignada').selectedIndex = -1;
+
+            mostrarAlerta('Nota guardada exitosamente', 'success');
+            cargarNotas();
+        }
+
+        // Función para cargar las notas en el historial
+        function cargarNotas() {
+            const notas = JSON.parse(localStorage.getItem('notas') || '[]');
+            const listaNotas = document.getElementById('listaNotas');
+            listaNotas.innerHTML = '';
+
+            notas.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            notas.forEach(nota => {
                 const notaElement = document.createElement('div');
                 notaElement.className = 'nota-item';
                 notaElement.innerHTML = `
-                    <div class="nota-fecha">
-                        <span>Fecha de creación: ${nota.fechaCreacion}</span>
-                        <span class="nota-fecha-programada">Programada para: ${fechaFormateada}</span>
+                    <div class="nota-header">
+                        <span class="nota-fecha">${formatearFecha(nota.fecha)}</span>
+                        <span class="nota-personas">${nota.personasAsignadas.join(', ')}</span>
                     </div>
-                    ${nota.personasAsignadas && nota.personasAsignadas.length > 0 ? 
-                        `<div class="nota-persona">👥 Asignada a: ${nota.personasAsignadas.join(', ')}</div>` : ''}
-                    <div class="nota-contenido">${nota.contenido.replace(/\n/g, '<br>')}</div>
+                    <div class="nota-texto">${nota.texto}</div>
                     <div class="nota-acciones">
-                        <button class="btn btn-warning" onclick="modificarNota(${index})">Modificar</button>
-                        <button class="btn btn-danger" onclick="eliminarNota(${index})">Eliminar</button>
+                        <button class="btn btn-warning" onclick="editarNota(${nota.id})">Editar</button>
+                        <button class="btn btn-danger" onclick="eliminarNota(${nota.id})">Eliminar</button>
                     </div>
                 `;
                 listaNotas.appendChild(notaElement);
             });
+        }
+
+        // Función para formatear la fecha
+        function formatearFecha(fecha) {
+            const opciones = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return new Date(fecha).toLocaleDateString('es-ES', opciones);
+        }
+
+        // Función para editar una nota
+        function editarNota(id) {
+            const notas = JSON.parse(localStorage.getItem('notas') || '[]');
+            const nota = notas.find(n => n.id === id);
+            
+            if (nota) {
+                document.getElementById('fechaNota').value = nota.fecha;
+                document.getElementById('areaNotas').value = nota.texto;
+                
+                // Seleccionar las personas asignadas
+                const selectPersonas = document.getElementById('personaAsignada');
+                Array.from(selectPersonas.options).forEach(option => {
+                    option.selected = nota.personasAsignadas.includes(option.value);
+                });
+
+                // Eliminar la nota actual
+                const notasActualizadas = notas.filter(n => n.id !== id);
+                localStorage.setItem('notas', JSON.stringify(notasActualizadas));
+                
+                mostrarAlerta('Nota cargada para edición', 'success');
+                cargarNotas();
+            }
+        }
+
+        // Función para eliminar una nota
+        function eliminarNota(id) {
+            if (confirm('¿Está seguro de eliminar esta nota?')) {
+                const notas = JSON.parse(localStorage.getItem('notas') || '[]');
+                const notasActualizadas = notas.filter(nota => nota.id !== id);
+                localStorage.setItem('notas', JSON.stringify(notasActualizadas));
+                mostrarAlerta('Nota eliminada exitosamente', 'success');
+                cargarNotas();
+            }
         }
 
         // Función para filtrar notas
@@ -2669,22 +2820,24 @@ Personal asignado:
             const filtroFecha = document.getElementById('filtroFecha').value;
             const filtroPersona = document.getElementById('filtroPersona').value;
             
+            const notas = JSON.parse(localStorage.getItem('notas') || '[]');
+            const listaNotas = document.getElementById('listaNotas');
+            listaNotas.innerHTML = '';
+            
             const notasFiltradas = notas.filter(nota => {
-                const cumpleBusqueda = nota.contenido.toLowerCase().includes(busqueda);
-                const cumplePersona = filtroPersona === 'todas' || 
-                    (nota.personasAsignadas && nota.personasAsignadas.includes(filtroPersona));
+                const cumpleBusqueda = nota.texto.toLowerCase().includes(busqueda);
+                const cumplePersona = filtroPersona === 'todas' || nota.personasAsignadas.includes(filtroPersona);
                 
                 let cumpleFecha = true;
                 if (filtroFecha !== 'todas') {
-                    const fechaNota = new Date(nota.fechaProgramada);
+                    const fechaNota = new Date(nota.fecha);
                     const hoy = new Date();
-                    const inicioSemana = new Date(hoy);
-                    inicioSemana.setDate(hoy.getDate() - hoy.getDay());
+                    const inicioSemana = new Date(hoy.setDate(hoy.getDate() - hoy.getDay()));
                     const inicioMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
                     
                     switch(filtroFecha) {
                         case 'hoy':
-                            cumpleFecha = fechaNota.toDateString() === hoy.toDateString();
+                            cumpleFecha = fechaNota.toDateString() === new Date().toDateString();
                             break;
                         case 'semana':
                             cumpleFecha = fechaNota >= inicioSemana;
@@ -2698,122 +2851,28 @@ Personal asignado:
                 return cumpleBusqueda && cumplePersona && cumpleFecha;
             });
             
-            const listaNotas = document.getElementById('listaNotas');
-            listaNotas.innerHTML = '';
-            
-            notasFiltradas.forEach((nota, index) => {
-                const fechaProgramada = new Date(nota.fechaProgramada);
-                const fechaFormateada = fechaProgramada.toLocaleDateString('es-ES', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                
+            notasFiltradas.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            notasFiltradas.forEach(nota => {
                 const notaElement = document.createElement('div');
                 notaElement.className = 'nota-item';
                 notaElement.innerHTML = `
-                    <div class="nota-fecha">
-                        <span>Fecha de creación: ${nota.fechaCreacion}</span>
-                        <span class="nota-fecha-programada">Programada para: ${fechaFormateada}</span>
+                    <div class="nota-header">
+                        <span class="nota-fecha">${formatearFecha(nota.fecha)}</span>
+                        <span class="nota-personas">${nota.personasAsignadas.join(', ')}</span>
                     </div>
-                    ${nota.personasAsignadas && nota.personasAsignadas.length > 0 ? 
-                        `<div class="nota-persona">👥 Asignada a: ${nota.personasAsignadas.join(', ')}</div>` : ''}
-                    <div class="nota-contenido">${nota.contenido.replace(/\n/g, '<br>')}</div>
+                    <div class="nota-texto">${nota.texto}</div>
                     <div class="nota-acciones">
-                        <button class="btn btn-warning" onclick="modificarNota(${index})">Modificar</button>
-                        <button class="btn btn-danger" onclick="eliminarNota(${index})">Eliminar</button>
+                        <button class="btn btn-warning" onclick="editarNota(${nota.id})">Editar</button>
+                        <button class="btn btn-danger" onclick="eliminarNota(${nota.id})">Eliminar</button>
                     </div>
                 `;
                 listaNotas.appendChild(notaElement);
             });
         }
 
-        // Función para cargar las notas desde localStorage
-        function cargarNotasDesdeStorage() {
-            const notasGuardadas = localStorage.getItem('notas');
-            if (notasGuardadas) {
-                try {
-                    notas = JSON.parse(notasGuardadas);
-                    console.log('Notas cargadas:', notas); // Debug
-                } catch (e) {
-                    console.error('Error al cargar las notas:', e);
-                    notas = [];
-                }
-            }
-        }
-
-        // Función para guardar una nueva nota
-        function guardarNota() {
-            const areaNotas = document.getElementById('areaNotas');
-            const fechaInput = document.getElementById('fechaNota');
-            const personaAsignada = document.getElementById('personaAsignada');
-            
-            if (!areaNotas) return;
-            
-            const contenido = areaNotas.value.trim();
-            const fechaProgramada = fechaInput.value;
-            const personas = Array.from(personaAsignada.selectedOptions).map(option => option.value).filter(value => value !== '');
-            
-            if (!contenido) {
-                mostrarAlerta('Por favor, escriba algo antes de guardar', 'error');
-                return;
-            }
-
-            if (!fechaProgramada) {
-                mostrarAlerta('Por favor, seleccione una fecha para la nota', 'error');
-                return;
-            }
-
-            const nuevaNota = {
-                contenido: contenido,
-                fechaCreacion: new Date().toLocaleString(),
-                fechaProgramada: fechaProgramada,
-                personasAsignadas: personas
-            };
-
-            // Añadir la nueva nota al array
-            notas.push(nuevaNota);
-            
-            // Ordenar notas por fecha programada
-            notas.sort((a, b) => new Date(a.fechaProgramada) - new Date(b.fechaProgramada));
-            
-            // Guardar en localStorage
-            try {
-                localStorage.setItem('notas', JSON.stringify(notas));
-            } catch (e) {
-                console.error('Error al guardar las notas:', e);
-                mostrarAlerta('Error al guardar la nota', 'error');
-                return;
-            }
-            
-            // Limpiar el área de texto, la fecha y el selector de persona
-            areaNotas.value = '';
-            fechaInput.value = '';
-            personaAsignada.value = '';
-            
-            // Actualizar la lista de notas
-            cargarNotas();
-            
-            // Actualizar estadísticas
-            actualizarEstadisticas();
-            
-            mostrarAlerta('Nota guardada correctamente');
-        }
-
-        // Función para eliminar una nota
-        function eliminarNota(index) {
-            if (confirm('¿Está seguro de eliminar esta nota?')) {
-                notas.splice(index, 1);
-                localStorage.setItem('notas', JSON.stringify(notas));
-                cargarNotas();
-                actualizarEstadisticas();
-                mostrarAlerta('Nota eliminada correctamente');
-            }
-        }
-
         // Cargar notas al iniciar
-        cargarNotasDesdeStorage();
+            cargarNotas();
 
         // Función para actualizar estadísticas
         function actualizarEstadisticas() {
