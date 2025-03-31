@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Gestión de Producción</title>
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Sistema de Gestión de Producción">
+    <title>Sistema de Gestión de Producción</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -2089,6 +2096,17 @@
 
             .content {
                 margin-left: 0;
+                padding-top: 60px;
+            }
+        }
+
+        /* Estilos para ocultar elementos innecesarios en móvil */
+        @media (max-width: 768px) {
+            body::before {
+                display: none !important;
+            }
+            
+            .content {
                 padding-top: 60px;
             }
         }
@@ -4222,6 +4240,15 @@ Personal asignado:
     actualizarEstadisticas();
     mostrarActividadesDia();
 }
+
+        // Prevenir que se muestre el DOCTYPE en móvil
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.innerWidth <= 768) {
+                document.body.style.display = 'block';
+                document.body.style.visibility = 'visible';
+                document.body.style.opacity = '1';
+            }
+        });
     </script>
 </body>
 </html> 
