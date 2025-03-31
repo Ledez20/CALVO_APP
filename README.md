@@ -21,7 +21,7 @@
             --card-bg: rgba(44, 62, 80, 0.95);
             --input-bg: rgba(52, 73, 94, 0.8);
             --input-border: #3498db;
-            --shadow-color: rgba(52, 152, 219, 0.2);
+            --shadow-color: rgba(9, 98, 158, 0.2);
         }
 
         /* Estilos base */
@@ -144,15 +144,16 @@
         .sidebar {
             position: fixed;
             top: 0;
-                left: -250px;
-                width: 250px;
+                left: -200px; /* Reducido de -250px */
+                width: 200px; /* Reducido de 250px */
             height: 100vh;
                 background: rgba(44, 62, 80, 0.98);
                 backdrop-filter: blur(10px);
             z-index: 1000;
                 transition: left 0.3s ease;
-                padding: 20px;
+                padding: 15px; /* Reducido de 20px */
                 box-shadow: 4px 0 15px var(--shadow-color);
+                overflow-y: auto;
             }
 
             .sidebar.active {
@@ -1313,20 +1314,24 @@
             }
         }
 
-        /* Estilos responsive */
+        /* Estilos responsive mejorados */
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
                 top: 0;
-                left: -250px;
-                width: 250px;
+                left: -200px; /* Reducido de -250px */
+                width: 200px; /* Reducido de 250px */
                 height: 100vh;
                 background: rgba(44, 62, 80, 0.98);
                 backdrop-filter: blur(10px);
                 z-index: 1000;
                 transition: left 0.3s ease;
-                padding: 20px;
+                padding: 15px; /* Reducido de 20px */
                 box-shadow: 4px 0 15px var(--shadow-color);
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 8px; /* Reducido de 10px */
             }
 
             .sidebar.active {
@@ -1348,10 +1353,59 @@
                 background: var(--accent-color);
                 border: none;
                 color: var(--text-primary);
-                padding: 10px 15px;
-                border-radius: 8px;
+                padding: 12px 15px;
+                border-radius: 12px;
                 cursor: pointer;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                box-shadow: 0 4px 15px var(--shadow-color);
+                font-size: 1.2em;
+                transition: all 0.3s ease;
+            }
+
+            .menu-toggle:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px var(--shadow-color);
+            }
+
+            .sidebar .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .sidebar .nav-links a {
+                padding: 12px 15px;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .sidebar .nav-links a:hover {
+                background: var(--accent-color);
+                transform: translateX(5px);
+            }
+
+            .sidebar .nav-links a i {
+                font-size: 1.2em;
+            }
+
+            /* Overlay para cuando el menú está activo */
+            .menu-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                backdrop-filter: blur(3px);
+            }
+
+            .menu-overlay.active {
+                display: block;
             }
 
             .section {
@@ -1509,6 +1563,82 @@
                 right: 5%;
                 padding: 15px;
             }
+
+            /* Estilos para actividades del día en móvil */
+            .actividades-dia {
+                padding: 15px;
+                margin-top: 20px;
+            }
+
+            .actividades-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .actividad-card {
+                padding: 15px;
+            }
+
+            .actividad-fecha {
+                font-size: 1em;
+            }
+
+            .actividad-personas {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .persona-tag {
+                font-size: 0.9em;
+                padding: 3px 8px;
+            }
+
+            .actividad-contenido {
+                font-size: 1em;
+                line-height: 1.5;
+            }
+
+            /* Mejoras para formularios en móvil */
+            .form-group label {
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+
+            /* Mejoras para botones en móvil */
+            .btn {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 5px 0;
+                font-size: 1em;
+                text-align: center;
+            }
+
+            /* Mejoras para modales en móvil */
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+                padding: 20px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-buttons .btn {
+                width: 100%;
+            }
         }
 
         /* Estilos para pantallas muy pequeñas */
@@ -1542,11 +1672,432 @@
                 height: 8px;
                 transform-origin: 50% 60px;
             }
+
+            .actividad-card {
+                padding: 10px;
+            }
+
+            .actividad-fecha {
+                font-size: 0.9em;
+            }
+
+            .persona-tag {
+                font-size: 0.8em;
+                padding: 2px 6px;
+            }
+
+            .actividad-contenido {
+                font-size: 0.9em;
+            }
+        }
+
+        /* Estilos para las notas */
+        .nota {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .nota:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .nota-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nota .fecha {
+            color: #666;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nota .fecha i {
+            color: #007bff;
+        }
+
+        .nota-content {
+            margin: 15px 0;
+        }
+
+        .nota .texto {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #FFD700; /* Color amarillo dorado */
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Sombra para mejor legibilidad */
+            background-color: rgba(0,0,0,0.1); /* Fondo sutil para mejor contraste */
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .nota .texto i {
+            color: #FFD700; /* Icono también en amarillo */
+            margin-top: 3px;
+        }
+
+        .nota .persona {
+            color: #6c757d;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nota .persona i {
+            color: #17a2b8;
+        }
+
+        .nota .categoria {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        .nota .categoria i {
+            font-size: 0.9em;
+        }
+
+        .nota .categoria.urgente {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .nota .categoria.importante {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .nota .categoria.normal {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .nota .categoria.informativa {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .nota-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .nota-footer button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Estilos para el formulario de notas */
+        .formulario-nota {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .formulario-nota textarea {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.1em;
+            line-height: 1.6;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .formulario-nota select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+        }
+
+        .formulario-nota button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s;
+        }
+
+        .formulario-nota button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para el contenedor de notas */
+        .notas-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Estilos para el título de la sección */
+        .notas-titulo {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .actividades-dia {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(44, 62, 80, 0.95);
+            border-radius: 12px;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px var(--shadow-color);
+        }
+
+        .actividades-dia h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8em;
+        }
+
+        .actividades-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .actividad-card {
+            background: rgba(52, 73, 94, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .actividad-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .actividad-fecha {
+            color: var(--accent-color);
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .actividad-personas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .persona-tag {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--text-primary);
+        }
+
+        .actividad-contenido {
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 1.1em;
+            white-space: pre-wrap;
+        }
+
+        .actividad-vacia {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 20px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .actividades-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Estilos para el botón de retroceso */
+        .back-button {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1001;
+            background: var(--accent-color);
+            border: none;
+            color: var(--text-primary);
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            font-size: 1em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-color);
+        }
+
+        .back-button i {
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                top: 15px;
+                right: 15px;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Estilos para el menú hamburguesa */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+            background: var(--accent-color);
+            border: none;
+            color: var(--text-primary);
+            padding: 12px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-color);
+        }
+
+        .menu-toggle i {
+            font-size: 1.5em;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -200px; /* Reducido de -250px */
+                width: 200px; /* Reducido de 250px */
+                height: 100vh;
+                background: rgba(44, 62, 80, 0.98);
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+                transition: left 0.3s ease;
+                padding: 15px; /* Reducido de 20px */
+                box-shadow: 4px 0 15px var(--shadow-color);
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 8px; /* Reducido de 10px */
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .sidebar button {
+                width: 100%;
+                padding: 10px 12px; /* Reducido de 12px 15px */
+                border: none;
+                background: rgba(255, 255, 255, 0.1);
+                color: var(--text-primary);
+                border-radius: 6px; /* Reducido de 8px */
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 8px; /* Reducido de 10px */
+                font-size: 0.9em; /* Reducido de 1em */
+            }
+
+            .sidebar button:hover {
+                background: var(--accent-color);
+                transform: translateX(5px);
+            }
+
+            .sidebar .home-button {
+                background: var(--accent-color);
+                margin-bottom: 8px; /* Reducido de 10px */
+            }
+
+            .sidebar .home-icon,
+            .sidebar .section-icon {
+                font-size: 1.1em; /* Ajustado para mejor proporción */
+            }
+
+            .menu-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                backdrop-filter: blur(3px);
+            }
+
+            .menu-overlay.active {
+                display: block;
+            }
+
+            .content {
+                margin-left: 0;
+                padding-top: 60px;
+            }
         }
     </style>
 </head>
 <body>
-    
+    <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
     <div class="sidebar">
         <button onclick="showSection('bienvenida')" class="home-button">
             <span class="home-icon">🏠</span> Home
@@ -1554,17 +2105,24 @@
         <button onclick="showSection('elaboracion')">
             <span class="section-icon">🦑</span> Elaboración
         </button>
-        <button onclick="showSection('inventario')">
-            <span class="section-icon">📦</span> Gestión de Inventario
+        <button onclick="showSection('descarga')">
+            <span class="section-icon">🚛</span> Descarga y clasificación
         </button>
         <button onclick="showSection('notas')">
             <span class="section-icon">📝</span> Notas y Programación
+        </button>
+        <button onclick="showSection('inventario')">
+            <span class="section-icon">🧮</span> Gestión de Inventario
         </button>
         <button onclick="showSection('gestionPersonas')">
             <span class="section-icon">👥</span> Gestión de Personas
         </button>
     </div>
+    <div class="menu-overlay"></div>
     <div class="content">
+        <button id="backButton" class="back-button" onclick="volverAInicio()" style="display: none;">
+            <i class="fas fa-arrow-left"></i> Volver
+        </button>
         <div id="alertContainer"></div>
         
         <!-- Pantalla de Bienvenida -->
@@ -1575,10 +2133,15 @@
                     <div class="welcome-card" onclick="showSection('elaboracion')">
                         <div class="card-icon">🦑</div>
                         <h3>Elaboración</h3>
-                        <p>Gestiona las elaboraciones y programación</p>
+                        <p>Organiza tus notas y mantén al día tu planificaciónn</p>
+                    </div>
+                    <div class="welcome-card" onclick="showSection('descarga')">
+                        <div class="card-icon">🚛</div>
+                        <h3>Descarga y clasificación</h3>
+                        <p>Registra y gestiona las descargas y clasificaciones de productos</p>
                     </div>
                     <div class="welcome-card" onclick="showSection('inventario')">
-                        <div class="card-icon">📦</div>
+                        <div class="card-icon">🧮</div>
                         <h3>Gestión de Inventario</h3>
                         <p>Administra el inventario y stock</p>
                     </div>
@@ -1590,7 +2153,7 @@
                     <div class="welcome-card" onclick="showSection('gestionPersonas')">
                         <div class="card-icon">👥</div>
                         <h3>Gestión de Personas</h3>
-                        <p>Administra el personal y sus cargos</p>
+                        <p>Organiza a tu equipo y define sus roles de forma sencilla</p>
                     </div>
                 </div>
                 <div class="welcome-stats">
@@ -1612,6 +2175,14 @@
                     <div class="stat-card">
                         <div class="stat-value" id="totalNotas">0</div>
                         <div class="stat-label">Notas Guardadas</div>
+                    </div>
+                </div>
+                <div class="actividades-dia">
+                    <h3>Actividades del día</h3>
+                    <div id="actividadesDiaActual" class="actividades-container">
+                        <div class="actividad-vacia">
+                            No hay actividades programadas para hoy
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1820,6 +2391,72 @@
                 </div>
             </div>
         </div>
+
+        <!-- Sección de Descarga y clasificación -->
+        <div id="descarga" class="section" style="display: none;">
+            <div class="container">
+                <h2>Descarga y clasificación</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Nueva descarga</h5>
+                                <form id="formularioDescarga">
+                                    <div class="form-group">
+                                        <label for="lugarTrabajo">Lugar de trabajo:</label>
+                                        <select class="form-control" id="lugarTrabajo" required>
+                                            <option value="">Seleccione un lugar</option>
+                                            <option value="Frigalsa">Frigalsa</option>
+                                            <option value="ISP">ISP</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="labor">Labor:</label>
+                                        <select class="form-control" id="labor" required>
+                                            <option value="">Seleccione una labor</option>
+                                            <option value="Descargar">Descargar</option>
+                                            <option value="Clasificación">Clasificación</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="personaDescarga">Persona asignada:</label>
+                                        <select class="form-control" id="personaDescarga" required>
+                                            <option value="">Seleccione una persona</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fechaDescarga">Fecha:</label>
+                                        <input type="date" class="form-control" id="fechaDescarga" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Registrar descarga</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Historial de descargas</h5>
+                                <div id="historialDescargas" class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Lugar</th>
+                                                <th>Labor</th>
+                                                <th>Persona</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1967,46 +2604,36 @@ Personal asignado:
 
         // Función para mostrar una sección y ocultar las demás
         function showSection(sectionId) {
-            const sections = document.getElementsByClassName('section');
-            for (let section of sections) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.section').forEach(section => {
                 section.style.display = 'none';
-            }
-            const sectionToShow = document.getElementById(sectionId);
-            if (sectionToShow) {
-                sectionToShow.style.display = 'block';
+            });
+
+            // Mostrar la sección seleccionada
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
                 
-                // Si es la sección de elaboración, mostrar la primera subsección por defecto
-                if (sectionId === 'elaboracion') {
-                    showSubSection('gestionElaboraciones');
-                }
-
-                // Actualizar estadísticas cuando se muestra la pantalla de bienvenida
+                // Mostrar/ocultar el botón de retroceso
+                const backButton = document.getElementById('backButton');
                 if (sectionId === 'bienvenida') {
-                    actualizarEstadisticas();
+                    backButton.style.display = 'none';
+                } else {
+                    backButton.style.display = 'flex';
                 }
 
-                // Cargar datos específicos según la sección
-                switch(sectionId) {
-                    case 'inventario':
-                        mostrarHistorialInventario();
-                        break;
-                    case 'elaboracion':
-                        mostrarHistorialElaboraciones();
-                        break;
-                    case 'notas':
-                        cargarNotas();
-                        cargarPersonasEnSelector();
-                        break;
-                    case 'gestionPersonas':
-                        mostrarHistorialPersonas();
-                        break;
-                }
-
-                // Cerrar el menú en móvil después de seleccionar una sección
+                // Cerrar el menú en móvil
                 if (window.innerWidth <= 768) {
-                    document.querySelector('.sidebar').classList.remove('active');
+                    const sidebar = document.querySelector('.sidebar');
+                    const overlay = document.querySelector('.menu-overlay');
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
                 }
             }
+        }
+
+        function volverAInicio() {
+            showSection('bienvenida');
         }
 
         // Función para mostrar una subsección dentro de Elaboración
@@ -2031,7 +2658,13 @@ Personal asignado:
             switch(subSectionId) {
                 case 'gestionElaboraciones':
                     generarGridBins();
-                    setTimeout(calcularConsumoEstimado, 100);
+                    setTimeout(() => {
+                        const binsInput = document.getElementById('bins');
+                        if (binsInput) {
+                            binsInput.addEventListener('input', calcularConsumoEstimado);
+                            calcularConsumoEstimado(); // Calcular valor inicial
+                        }
+                    }, 100);
                     mostrarHistorialElaboraciones();
                     break;
             }
@@ -2332,6 +2965,13 @@ Personal asignado:
             html += '</ul>';
             
             consumoEstimado.innerHTML = html;
+        }
+
+        // Agregar event listener para actualización en tiempo real
+        const binsInput = document.getElementById('bins');
+        if (binsInput) {
+            binsInput.addEventListener('input', calcularConsumoEstimado);
+            calcularConsumoEstimado(); // Calcular valor inicial
         }
 
         // Función para obtener el stock actual de un producto
@@ -2733,12 +3373,15 @@ Personal asignado:
             notas.push(nuevaNota);
             localStorage.setItem('notas', JSON.stringify(notas));
 
+    // Limpiar formulario
             document.getElementById('areaNotas').value = '';
             document.getElementById('fechaNota').value = '';
             document.getElementById('personaAsignada').selectedIndex = -1;
 
             mostrarAlerta('Nota guardada exitosamente', 'success');
             cargarNotas();
+    actualizarEstadisticas();
+    mostrarActividadesDia();
         }
 
         // Función para cargar las notas en el historial
@@ -2942,22 +3585,6 @@ Personal asignado:
         cargarNotas();
         actualizarEstadisticas();
 
-        // Agregar evento para actualizar el consumo estimado cuando cambia el número de bins
-        const binsInput = document.getElementById('bins');
-        if (binsInput) {
-            binsInput.addEventListener('input', function() {
-                calcularConsumoEstimado();
-            });
-        }
-
-        // Calcular consumo estimado inicial
-        calcularConsumoEstimado();
-
-        // Agregar evento para calcular el consumo estimado cuando se muestra la sección de elaboraciones
-        document.getElementById('gestionElaboraciones').addEventListener('show', function() {
-            calcularConsumoEstimado();
-        });
-
         // Inicializar localStorage si no existe
         if (!localStorage.getItem('inventario')) {
             localStorage.setItem('inventario', JSON.stringify([]));
@@ -2971,6 +3598,15 @@ Personal asignado:
         if (!localStorage.getItem('notas')) {
             localStorage.setItem('notas', JSON.stringify([]));
         }
+
+        // Inicializar el consumo estimado y agregar el event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            const binsInput = document.getElementById('bins');
+            if (binsInput) {
+                binsInput.addEventListener('input', calcularConsumoEstimado);
+                calcularConsumoEstimado(); // Calcular valor inicial
+            }
+        });
 
         // Función para alternar la visibilidad del historial
         function toggleHistorial(historialId) {
@@ -3271,21 +3907,322 @@ Personal asignado:
         // Función para alternar el menú móvil
         function toggleMenu() {
             const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.menu-overlay');
             sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Cerrar el menú al hacer clic en un enlace
+            const navLinks = document.querySelectorAll('.sidebar button');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            });
         }
 
-        // Cerrar el menú al hacer clic fuera de él en móvil
-        document.addEventListener('click', function(event) {
+        // Cerrar el menú al hacer clic en el overlay
+        document.querySelector('.menu-overlay').addEventListener('click', () => {
             const sidebar = document.querySelector('.sidebar');
-            const menuToggle = document.querySelector('.menu-toggle');
+            const overlay = document.querySelector('.menu-overlay');
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Función para registrar una nueva persona
+        function registrarPersona() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const dni = document.getElementById('dni').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const rol = document.getElementById('rol').value;
+            const fechaIngreso = document.getElementById('fechaIngreso').value;
+            const estado = document.getElementById('estado').value;
+
+            // Validar campos requeridos
+            if (!nombre || !apellido || !dni || !rol || !fechaIngreso) {
+                alert('Por favor complete todos los campos requeridos');
+                return;
+            }
+
+            // Obtener personas existentes
+            const personas = JSON.parse(localStorage.getItem('personas') || '[]');
+
+            // Verificar si ya existe una persona con el mismo nombre y apellido
+            const personaExistente = personas.find(p => 
+                p.nombre.toLowerCase() === nombre.toLowerCase() && 
+                p.apellido.toLowerCase() === apellido.toLowerCase()
+            );
+
+            if (personaExistente) {
+                alert('Ya existe una persona registrada con el mismo nombre y apellido');
+                return;
+            }
+
+            // Crear nueva persona
+            const nuevaPersona = {
+                id: Date.now(),
+                nombre,
+                apellido,
+                dni,
+                telefono,
+                email,
+                rol,
+                fechaIngreso,
+                estado,
+                fechaRegistro: new Date().toISOString()
+            };
+
+            // Agregar a la lista
+            personas.push(nuevaPersona);
+
+            // Guardar en localStorage
+            localStorage.setItem('personas', JSON.stringify(personas));
+
+            // Actualizar la tabla
+            mostrarPersonas();
+
+            // Limpiar el formulario
+            document.getElementById('formularioPersona').reset();
+
+            // Mostrar mensaje de éxito
+            alert('Persona registrada exitosamente');
+        }
+
+        // Función para mostrar las notas en el historial
+        function mostrarNotas() {
+            const historialNotas = document.getElementById('historialNotas');
+            if (!historialNotas) return;
+
+            const notas = JSON.parse(localStorage.getItem('notas') || '[]');
+            historialNotas.innerHTML = '';
+
+            notas.forEach((nota, index) => {
+                const notaElement = document.createElement('div');
+                notaElement.className = 'nota';
+                notaElement.innerHTML = `
+                    <div class="nota-header">
+                        <div class="fecha">
+                            <i class="fas fa-calendar"></i>
+                            ${new Date(nota.fecha).toLocaleString()}
+                        </div>
+                        <div class="categoria ${nota.categoria.toLowerCase()}">
+                            <i class="fas fa-tag"></i>
+                            ${nota.categoria}
+                        </div>
+                    </div>
+                    <div class="nota-content">
+                        <div class="texto">
+                            <i class="fas fa-comment"></i>
+                            ${nota.texto}
+                        </div>
+                        <div class="persona">
+                            <i class="fas fa-user"></i>
+                            ${nota.persona || 'Sin asignar'}
+                        </div>
+                    </div>
+                    <div class="nota-footer">
+                        <button class="btn btn-danger" onclick="eliminarNota(${index})">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
+                    </div>
+                `;
+                historialNotas.appendChild(notaElement);
+            });
+        }
+
+        // Funciones para descarga y clasificación
+        function cargarPersonasDescarga() {
+            const selectPersona = document.getElementById('personaDescarga');
+            if (!selectPersona) return;
+
+            const personas = JSON.parse(localStorage.getItem('personas') || '[]');
+            selectPersona.innerHTML = '<option value="">Seleccione una persona</option>';
             
-            if (window.innerWidth <= 768 && 
-                !sidebar.contains(event.target) && 
-                !menuToggle.contains(event.target) && 
-                sidebar.classList.contains('active')) {
-                sidebar.classList.remove('active');
+            personas.forEach(persona => {
+                const option = document.createElement('option');
+                option.value = persona.nombre;
+                option.textContent = persona.nombre;
+                selectPersona.appendChild(option);
+            });
+        }
+
+        function registrarDescarga(event) {
+            event.preventDefault();
+            
+            const lugarTrabajo = document.getElementById('lugarTrabajo').value;
+            const labor = document.getElementById('labor').value;
+            const persona = document.getElementById('personaDescarga').value;
+            const fecha = document.getElementById('fechaDescarga').value;
+
+            if (!lugarTrabajo || !labor || !persona || !fecha) {
+                alert('Por favor complete todos los campos requeridos');
+                return;
+            }
+
+            const descargas = JSON.parse(localStorage.getItem('descargas') || '[]');
+            const nuevaDescarga = {
+                id: Date.now(),
+                lugarTrabajo,
+                labor,
+                persona,
+                fecha,
+                fechaRegistro: new Date().toISOString()
+            };
+
+            descargas.push(nuevaDescarga);
+            localStorage.setItem('descargas', JSON.stringify(descargas));
+
+            mostrarHistorialDescargas();
+            document.getElementById('formularioDescarga').reset();
+            alert('Descarga registrada exitosamente');
+        }
+
+        function mostrarHistorialDescargas() {
+            const tbody = document.querySelector('#historialDescargas tbody');
+            if (!tbody) return;
+
+            const descargas = JSON.parse(localStorage.getItem('descargas') || '[]');
+            tbody.innerHTML = '';
+
+            descargas.forEach((descarga, index) => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${new Date(descarga.fecha).toLocaleDateString()}</td>
+                    <td>${descarga.lugarTrabajo}</td>
+                    <td>${descarga.labor}</td>
+                    <td>${descarga.persona}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="eliminarDescarga(${index})">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
+                    </td>
+                `;
+            });
+        }
+
+        function eliminarDescarga(index) {
+            if (confirm('¿Está seguro de eliminar esta descarga?')) {
+                const descargas = JSON.parse(localStorage.getItem('descargas') || '[]');
+                descargas.splice(index, 1);
+                localStorage.setItem('descargas', JSON.stringify(descargas));
+                mostrarHistorialDescargas();
+            }
+        }
+
+        // Inicialización de la sección de descargas
+        document.addEventListener('DOMContentLoaded', function() {
+            const formularioDescarga = document.getElementById('formularioDescarga');
+            if (formularioDescarga) {
+                formularioDescarga.addEventListener('submit', registrarDescarga);
+                cargarPersonasDescarga();
+                mostrarHistorialDescargas();
             }
         });
+
+        // Función para mostrar las actividades del día actual
+        function mostrarActividadesDia() {
+    const container = document.getElementById('actividadesDiaActual');
+    if (!container) return;
+
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+
+    const notas = JSON.parse(localStorage.getItem('notas') || '[]');
+    const actividadesHoy = notas.filter(nota => {
+        const fechaNota = new Date(nota.fecha);
+        fechaNota.setHours(0, 0, 0, 0);
+        return fechaNota.getTime() === hoy.getTime();
+    });
+
+    if (actividadesHoy.length === 0) {
+        container.innerHTML = '<div class="actividad-vacia">No hay actividades programadas para hoy</div>';
+        return;
+    }
+
+    container.innerHTML = actividadesHoy.map(nota => `
+        <div class="actividad-card">
+            <div class="actividad-fecha">${new Date(nota.fecha).toLocaleDateString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })}</div>
+            <div class="actividad-personas">
+                ${nota.personasAsignadas.map(persona => 
+                    `<span class="persona-tag">${persona}</span>`
+                ).join('')}
+            </div>
+            <div class="actividad-contenido">${nota.texto}</div>
+        </div>
+    `).join('');
+}
+
+        // Actualizar la función showSection para incluir la actualización de actividades
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Mostrar la sección seleccionada
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+                
+                // Mostrar/ocultar el botón de retroceso
+                const backButton = document.getElementById('backButton');
+                if (sectionId === 'bienvenida') {
+                    backButton.style.display = 'none';
+                } else {
+                    backButton.style.display = 'flex';
+                }
+
+                // Cerrar el menú en móvil
+                if (window.innerWidth <= 768) {
+                    const sidebar = document.querySelector('.sidebar');
+                    const overlay = document.querySelector('.menu-overlay');
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            }
+        }
+
+        // Actualizar la función guardarNota para actualizar las actividades del día
+        function guardarNota() {
+    const fecha = document.getElementById('fechaNota').value;
+    const personasAsignadas = Array.from(document.getElementById('personaAsignada').selectedOptions).map(option => option.value);
+    const texto = document.getElementById('areaNotas').value;
+
+    if (!fecha || personasAsignadas.length === 0 || !texto) {
+        mostrarAlerta('Por favor complete todos los campos', 'error');
+        return;
+    }
+
+    const nuevaNota = {
+        id: Date.now(),
+        fecha: fecha,
+        personasAsignadas: personasAsignadas,
+        texto: texto,
+        timestamp: new Date().toISOString()
+    };
+
+    let notas = JSON.parse(localStorage.getItem('notas') || '[]');
+    notas.push(nuevaNota);
+    localStorage.setItem('notas', JSON.stringify(notas));
+
+    // Limpiar formulario
+    document.getElementById('areaNotas').value = '';
+    document.getElementById('fechaNota').value = '';
+    document.getElementById('personaAsignada').selectedIndex = -1;
+
+    mostrarAlerta('Nota guardada exitosamente', 'success');
+    cargarNotas();
+    actualizarEstadisticas();
+    mostrarActividadesDia();
+}
     </script>
 </body>
+</html> 
 </html> 
